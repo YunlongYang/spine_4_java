@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'online.heyworld'
+version 'unspecified'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx
+    compile group: 'com.badlogicgames.gdx', name: 'gdx', version: "$GDXVersion"
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl
+    compile group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl',version: "$GDXVersion"
+    compile "com.badlogicgames.gdx:gdx-platform:$GDXVersion:natives-desktop"
+    compile "com.badlogicgames.gdx:gdx-box2d-platform:$GDXVersion:natives-desktop"
+
+    // https://mvnrepository.com/artifact/com.esotericsoftware.spine/spine-libgdx
+//    compile group: 'com.esotericsoftware.spine', name: 'spine-libgdx', version: '3.7.94'
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
