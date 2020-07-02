@@ -104,11 +104,5 @@ class SuperSpineboy extends ApplicationAdapter {
 		view.rightPressed = false;
 	}
 
-	public static void main (String[] args) throws Exception {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Super Spineboy";
-		config.width = 800;
-		config.height = 450;
-		new LwjglApplication(new SuperSpineboy(), config);
-	}
+
 }

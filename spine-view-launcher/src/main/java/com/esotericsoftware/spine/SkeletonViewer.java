@@ -28,9 +28,6 @@ package com.esotericsoftware.spine;
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-import static com.badlogic.gdx.math.Interpolation.*;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
-
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 
@@ -55,12 +52,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData.Page;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -942,7 +941,7 @@ public class SkeletonViewer extends ApplicationAdapter {
                 public boolean scrolled (int amount) {
                     float zoom = zoomSlider.getValue(), zoomMin = zoomSlider.getMinValue(), zoomMax = zoomSlider.getMaxValue();
                     float speedAlpha = Math.min(1.2f, (zoom - zoomMin) / (zoomMax - zoomMin) * 3.5f);
-                    zoom -= linear.apply(0.02f, 0.2f, speedAlpha) * Math.signum(amount);
+                    zoom -= Interpolation.linear.apply(0.02f, 0.2f, speedAlpha) * Math.signum(amount);
                     zoomSlider.setValue(MathUtils.clamp(zoom, zoomMin, zoomMax));
                     return false;
                 }
@@ -1005,14 +1004,14 @@ public class SkeletonViewer extends ApplicationAdapter {
             table.getColor().a = 0;
             table.pack();
             table.setPosition(-table.getWidth(), -3 - table.getHeight());
-            table.addAction(sequence( //
-                    parallel(moveBy(0, table.getHeight(), 0.3f), fadeIn(0.3f)), //
-                    delay(5f), //
-                    parallel(moveBy(0, table.getHeight(), 0.3f), fadeOut(0.3f)), //
-                    removeActor() //
+            table.addAction(Actions.sequence( //
+                    Actions.parallel(Actions.moveBy(0, table.getHeight(), 0.3f), Actions.fadeIn(0.3f)), //
+                    Actions.delay(5f), //
+                    Actions.parallel(Actions.moveBy(0, table.getHeight(), 0.3f), Actions.fadeOut(0.3f)), //
+                    Actions.removeActor() //
             ));
             for (Actor actor : toasts.getChildren())
-                actor.addAction(moveBy(0, table.getHeight(), 0.3f));
+                actor.addAction(Actions.moveBy(0, table.getHeight(), 0.3f));
             toasts.addActor(table);
             toasts.getParent().toFront();
         }
