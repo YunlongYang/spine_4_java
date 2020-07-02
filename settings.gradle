@@ -1,5 +1,5 @@
 include ':spine-library'
 include ':launcher'
-include 'spine-view-core'
-include 'spine-view-launcher'
+include ':spine-view-core'
+include ':spine-view-launcher'
 
